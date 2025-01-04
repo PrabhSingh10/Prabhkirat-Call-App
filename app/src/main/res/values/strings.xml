@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PrabhkiratCallApp</string>
+    <string name="app_name_2">PrabhKirat Call App</string>
+    <string name="caller_name">PrabhKirat Singh</string>
+    <string name="notification_text">Allow Notifications in settings to access the app further</string>
+    <string name="open_settings">Open Settings</string>
+    <string name="reject">Reject</string>
+    <string name="accept">Accept</string>
+</resources>
