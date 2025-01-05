@@ -3,18 +3,19 @@ package com.prabh.prabhkiratcallapp.ui
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import com.google.android.material.snackbar.Snackbar
 import com.prabh.prabhkiratcallapp.databinding.MainActivityLayoutBinding
 import com.prabh.prabhkiratcallapp.utils.CallType
 import com.prabh.prabhkiratcallapp.utils.cancelIncomingCallNotification
@@ -29,11 +30,20 @@ class MainActivity : ComponentActivity() {
             if (isGranted) {
                 showCallNotification(this@MainActivity, CallType.VIDEO)
             } else {
-                Toast.makeText(
-                    this,
-                    "Need Camera Permission to initiate video call",
-                    Toast.LENGTH_SHORT
-                ).show()
+                binding?.videoCallButton?.let {
+                    Snackbar.make(it, "Needs Camera Permission To Initiate Video Call", Snackbar.LENGTH_SHORT)
+                        .setAction("SETTINGS") {
+                            val settingsIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                            val uri =
+                                Uri.fromParts("package", this.packageName, null)
+                            settingsIntent.data = uri
+                            cameraSettingsLaunch.launch(settingsIntent)
+                        }
+                        .setBackgroundTint(Color.DKGRAY)
+                        .setTextColor(Color.WHITE)
+                        .setActionTextColor(Color.WHITE)
+                        .show()
+                }
             }
         }
 
@@ -53,6 +63,11 @@ class MainActivity : ComponentActivity() {
             } else {
                 binding?.permissionView?.root?.visibility = View.GONE
             }
+        }
+
+    private val cameraSettingsLaunch =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            cameraRequest.launch(Manifest.permission.CAMERA)
         }
 
         override fun onCreate(savedInstanceState: Bundle?) {

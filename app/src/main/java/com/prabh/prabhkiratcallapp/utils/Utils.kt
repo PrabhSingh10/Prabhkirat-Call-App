@@ -27,3 +27,9 @@ enum class CallType {
     VIDEO,
     AUDIO
 }
+
+enum class CallState {
+    RINGING,
+    IN_CALL,
+    END_CALL
+}

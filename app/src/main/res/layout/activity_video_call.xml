@@ -7,11 +7,11 @@
     android:layout_height="match_parent">
 
     <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/white"
         app:lottie_fileName="Animation.json"
-        app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,6 +28,20 @@
         android:textSize="18sp"
         android:textColor="@color/black"
         android:text="@string/caller_name"/>
+
+    <TextView
+        android:id="@+id/call_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/controls"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        tools:text="Ringing..."/>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="120dp"
