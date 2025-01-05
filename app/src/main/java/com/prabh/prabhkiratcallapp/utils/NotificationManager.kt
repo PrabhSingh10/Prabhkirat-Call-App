@@ -56,9 +56,15 @@ fun showCallNotification(context: Context, callType: CallType) {
     customView.setOnClickPendingIntent(R.id.accept_button, acceptPendingIntent)
     customView.setOnClickPendingIntent(R.id.reject_button, rejectPendingIntent)
 
+    val collapsedCustomView = RemoteViews(context.packageName, R.layout.collapsed_notification_ui)
+
+    collapsedCustomView.setOnClickPendingIntent(R.id.accept_button, acceptPendingIntent)
+    collapsedCustomView.setOnClickPendingIntent(R.id.reject_button, rejectPendingIntent)
+
     val notification =  NotificationCompat.Builder(context, CHANNEL_ID)
         .setSmallIcon(R.drawable.rounded_call_24)
         .setCustomBigContentView(customView)
+        .setCustomContentView(collapsedCustomView)
         .setOngoing(true)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
         .setCategory(Notification.CATEGORY_CALL)
